@@ -1,0 +1,3 @@
+export type HistoryItem={id:string;type:'upload'|'vacancy'|'resume'|'cover-letter'|'interview-prep';title:string;createdAt:string;details?:string};
+export function addHistory(item:Omit<HistoryItem,'id'|'createdAt'>){if(typeof window==='undefined')return;const current:HistoryItem[]=JSON.parse(localStorage.getItem('history')||'[]');const next=[{...item,id:crypto.randomUUID(),createdAt:new Date().toISOString()},...current].slice(0,100);localStorage.setItem('history',JSON.stringify(next));}
+export function getHistory():HistoryItem[]{if(typeof window==='undefined')return[];try{return JSON.parse(localStorage.getItem('history')||'[]')}catch{return[]}}
